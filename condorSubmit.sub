@@ -1,0 +1,10 @@
+executable            = /afs/cern.ch/work/c/cneubuse/prod/miniCalo2/test_convert/condorScript.sh
+arguments             = 0_$(ProcId)
+log                   = /afs/cern.ch/work/c/cneubuse/prod/miniCalo2/test_convert/log/$(ProcId).log
+output                = /afs/cern.ch/work/c/cneubuse/prod/miniCalo2/test_convert/out/$(ProcId).out
+error                 = /afs/cern.ch/work/c/cneubuse/prod/miniCalo2/test_convert/err/$(ProcId).err
+getenv = True
++MaxRuntime = 82800
+RequestCpus = 1
+max_retries = 1
+queue 1000
