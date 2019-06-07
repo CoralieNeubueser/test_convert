@@ -36,7 +36,7 @@ int main( int argc, char* argv[] ){
   std::string inFileName = argv[1];
   std::string outFileName = argv[2];
 
-  std::cout << "hello" <<std::endl;
+  bool debug = false;
 
   // total detector dimension
   double tot_x = 1000.;
@@ -121,10 +121,10 @@ int main( int argc, char* argv[] ){
       if (r_e==0)
 	continue;
 
-      rechit[bin_x][bin_y][bin_l][0]+=r_e;
-      rechit[bin_x][bin_y][bin_l][1]=pos_x;
-      rechit[bin_x][bin_y][bin_l][2]=pos_y;
-      rechit[bin_x][bin_y][bin_l][3]=pos_layer;
+      rechit[bin_x][bin_y][bin_l].at(0)+=r_e;
+      rechit[bin_x][bin_y][bin_l].at(1)=pos_x;
+      rechit[bin_x][bin_y][bin_l].at(2)=pos_y;
+      rechit[bin_x][bin_y][bin_l].at(3)=pos_layer;
 
       if (ev==1 && hit<10){
 	std::cout << "     x=" << bin_x << ", y=" << bin_y <<", layer="<< bin_l << "\n";
@@ -150,7 +150,12 @@ int main( int argc, char* argv[] ){
 	for(uint iL=0;iL<rechit[iX][iY].size();iL++){
 	  if (rechit[iX][iY][iL].size()>4)
 	    std::cout << "Double filling in: x=" << iX << ", y="<< iY <<", layer="<< iL << "\n";
-	  rechit[iX][iY][iL].clear();
+	  if (debug && ev<3&&iL<1)
+	    std::cout << "event: " << ev << ", energy: " << rechit[iX][iY][iL][0] << "\n";
+	  rechit[iX][iY][iL][0]=0.;
+	  rechit[iX][iY][iL][1]=0.;
+          rechit[iX][iY][iL][2]=0.;
+          rechit[iX][iY][iL][3]=0.;
 	}
       }
     }
